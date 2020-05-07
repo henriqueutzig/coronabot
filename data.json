@@ -1,0 +1,15 @@
+{
+    "confirmed": {
+        "value": 101826,
+        "detail": "https://covid19.mathdro.id/api/countries/BR/confirmed"
+    },
+    "recovered": {
+        "value": 42991,
+        "detail": "https://covid19.mathdro.id/api/countries/BR/recovered"
+    },
+    "deaths": {
+        "value": 7051,
+        "detail": "https://covid19.mathdro.id/api/countries/BR/deaths"
+    },
+    "lastUpdate": "2020-05-04T17:32:31.000Z"
+}
