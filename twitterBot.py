@@ -4,6 +4,7 @@ import json
 import os
 import emoji
 
+
 def postTweet(bot, data):   
     tweet = ""
     if(os.path.isfile('data.json')):
@@ -28,10 +29,9 @@ def postTweet(bot, data):
         if(diff_recoverd > 0 and len(tweet) < 280):
             tweet += f"\n{diff_recoverd} novos recuperados"
 
-    if(tweet != "" and tweet <= 280):
-        print(tweet + "\ntamanho:" + len(tweet))
-        bot.update_status()
-    
+    if((tweet != "") and (len(tweet) <= 280)):
+        print(tweet + "\ntamanho:" + str(len(tweet)))
+        bot.update_status(tweet)
 
 
 
@@ -41,6 +41,6 @@ def startup():
     auth.set_access_token("ACCESS_TOKEN", "ACCESS_TOKEN_SECRET")
 
     # Create API object
-    api = tweepy.API(auth)
-
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+    
     return api

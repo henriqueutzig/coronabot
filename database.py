@@ -24,6 +24,7 @@ def compareData(currentData):
             # printCompare(currentData, oldData)
     else:
         storeData(currentData)
+        isDifferent = True
 
     return isDifferent
 
