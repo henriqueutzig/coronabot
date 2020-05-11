@@ -3,6 +3,13 @@ import tweepy
 import json
 import os
 
+#getting twitter keys
+from os import environ
+CONSUMER_KEY = environ['CONSUMER_KEY']
+CONSUMER_SECRET = environ['CONSUMER_SECRET']
+ACCESS_TOKEN = environ['ACCESS_KEY']
+ACCESS_TOKEN_SECRET = environ['ACCESS_SECRET']
+
 
 def postTweet(bot, data):   
     tweet = ""
@@ -37,8 +44,8 @@ def postTweet(bot, data):
 
 def startup():
     # Authenticate to Twitter
-    auth = tweepy.OAuthHandler("CONSUMER_KEY", "CONSUMER_SECRET")
-    auth.set_access_token("ACCESS_TOKEN", "ACCESS_TOKEN_SECRET")
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
     # Create API object
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
