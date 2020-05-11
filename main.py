@@ -22,8 +22,7 @@ def main():
             storeData(currentData)
 
         
-        time.sleep(300) #s
-        print(chr(27) + "[2J")
+        time.sleep(600) #s
         
 
 
