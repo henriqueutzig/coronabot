@@ -13,18 +13,21 @@ ACCESS_TOKEN_SECRET = environ['ACCESS_SECRET']
 
 def postTweet(bot, data):   
     tweet = ""
-    if(os.path.isfile('data.json')):
-        with open('data.json', 'r') as rj:
-            rj_file = rj.read()
-        oldData = json.loads(rj_file)
 
     confirmed = data['confirmed']['value']
     deaths = data['deaths']['value']
     recovered = data['recovered']['value']
+
+    if(os.path.isfile('data.json')):
+        with open('data.json', 'r') as rj:
+            rj_file = rj.read()
+        oldData = json.loads(rj_file)
+        diff_confirmed = confirmed - oldData['confirmed']['value']
+        diff_deaths = deaths - oldData['deaths']['value']
+        diff_recoverd = recovered - oldData['recovered']['value']
+
+
     
-    diff_confirmed = confirmed - oldData['confirmed']['value']
-    diff_deaths = deaths - oldData['deaths']['value']
-    diff_recoverd = recovered - oldData['recovered']['value']
 
     if(confirmed > 0 and deaths > 0 and recovered > 0):
         tweet = "CORONA VIRUS NO BRASIL: \n"
