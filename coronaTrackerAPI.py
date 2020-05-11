@@ -2,8 +2,6 @@
 import requests 
 import json
 
-import pandas as pd
-
 import datetime
 import os
 from database import storeData
