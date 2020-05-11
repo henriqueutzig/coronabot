@@ -2,7 +2,6 @@
 import tweepy
 import json
 import os
-import emoji
 
 
 def postTweet(bot, data):   
