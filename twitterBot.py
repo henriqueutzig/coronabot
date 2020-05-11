@@ -27,14 +27,14 @@ def postTweet(bot, data):
     diff_recoverd = recovered - oldData['recovered']['value']
 
     if(confirmed > 0 and deaths > 0 and recovered > 0):
-        tweet = "Corona Vírus no Brasil:"
+        tweet = "CORONA VIRUS NO BRASIL: \n"
         tweet += f"Infectados: {confirmed} \nMortos: {deaths} \nRecuperados: {recovered} \n"
-        if(diff_confirmed > 0 and len(tweet) < 280):
-            tweet += f"\n{diff_confirmed} novos infectados"
-        if(diff_deaths > 0 and len(tweet) < 280):
-            tweet += f"\n{diff_deaths} novas mortes"
-        if(diff_recoverd > 0 and len(tweet) < 280):
-           tweet += f"\n{diff_recoverd} novos recuperados"
+        #if(diff_confirmed > 0 and len(tweet) < 280):
+        #    tweet += f"\n{diff_confirmed} novos infectados"
+        #if(diff_deaths > 0 and len(tweet) < 280):
+        #    tweet += f"\n{diff_deaths} novas mortes"
+        #if(diff_recoverd > 0 and len(tweet) < 280):
+        #   tweet += f"\n{diff_recoverd} novos recuperados"
 
     if((tweet != "") and (len(tweet) <= 280)):
         print(tweet + "\ntamanho:" + str(len(tweet)))
