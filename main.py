@@ -22,7 +22,7 @@ def main():
             storeData(currentData)
 
         
-        time.sleep(600) #s
+        time.sleep(600) #s 1800-> 30min 
         
 
 

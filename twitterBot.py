@@ -19,11 +19,11 @@ def postTweet(bot, data):
     recovered = data['recovered']['value']
 
     if(confirmed > 0 and deaths > 0 and recovered > 0):
-        tweet = "COVID-19 VIRUS NO BRASIL\n\n"
+        tweet = "COVID-19 NO BRASIL\n\n"
         tweet += f"Infectados: {confirmed:,}\nMortos: {deaths:,}\nRecuperados: {recovered:,}\n\n"
         tweet += "Fonte dos Dados: John Hopkins University CSSE\n"
     
-    if((tweet != "") and (len(tweet) <= 280) and (isDuplicated == False)):
+    if((tweet != "") and (len(tweet) <= 280)): # and (isDuplicated == False)
         print(tweet + "\ntamanho:" + str(len(tweet)))
         bot.update_status(tweet)
 
