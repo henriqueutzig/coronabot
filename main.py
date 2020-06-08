@@ -6,6 +6,7 @@ from coronaTrackerAPI import getLatestData
 from twitterBot import postTweet, startup
 from database import compareData, storeData
 
+TIME =  30 * 60 # 30 min * 60 --> s
 
 def main():
     bot_api = startup()
@@ -22,7 +23,7 @@ def main():
             storeData(currentData)
 
         
-        time.sleep(600) #s 1800-> 30min 
+        time.sleep(TIME) #s 
         
 
 
