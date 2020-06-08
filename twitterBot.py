@@ -21,28 +21,25 @@ def postTweet(bot, data):
     if(confirmed > 0 and deaths > 0 and recovered > 0):
         tweet = "COVID-19 NO BRASIL\n\n"
         tweet += f"Infectados: {confirmed:,}\nMortos: {deaths:,}\nRecuperados: {recovered:,}\n\n"
-        tweet += dataDiff(data)
-        tweet += "\nFonte dos Dados: John Hopkins University CSSE\n"
+        tweet += "Fonte dos Dados: John Hopkins University CSSE\n"
         tweet += "#FiqueEmCasa"
-    if((tweet != "") and (len(tweet) <= 280)): #and (isDuplicated(tweet, bot) == False)
+    if((tweet != "") and (len(tweet) <= 280) and (isDuplicated(tweet, bot) == False)):
         print(tweet + "\ntamanho:" + str(len(tweet)))
         bot.update_status(tweet)
 
 
 def isDuplicated(tweet, api):
-    ''' isDuplicated is not working, I have no idea why'''
     isDup = True
-    rTweet = repr(tweet)
-    #request old tweets
+    # gets old tweets
     oldTweets = api.user_timeline()
     tweetList = []
-
+    # creating an array with all the contents 
     for t in oldTweets:            
-        tweetList.append(t.text)
-    #compare old tweets with new and set isDup to True or False
-    if (rTweet not in tweetList):
+        tweetList.append(str(t.text))
+    # compare old tweets with new and set isDup to True or False
+    if (tweet not in tweetList):
         isDup = False
-    
+    print("isDuplicated: " + str(isDup)) # print for debugging
     return isDup
 
 # function that gets the difference between the current Data and
@@ -66,7 +63,7 @@ def dataDiff(currentData):
         if(diff_deaths > 0 and len(diffTxt) < 280):
             diffTxt += f"\n{diff_deaths:,} novas mortes"
         if(diff_recoverd > 0 and len(diffTxt) < 280):
-           diffTxt += f"\n{diff_recoverd:,} novos recuperados"
+           diffTxt += f"\n{diff_recoverd:,} novos recuperados\n\n"
     
     return diffTxt
 
