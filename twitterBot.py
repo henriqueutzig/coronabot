@@ -2,6 +2,7 @@
 import tweepy
 import json
 import os
+from coronaTrackerAPI import getTotalDeaths, getTotalInfected
 
 #getting twitter keys
 from os import environ
@@ -11,17 +12,16 @@ ACCESS_TOKEN = environ['ACCESS_KEY']
 ACCESS_TOKEN_SECRET = environ['ACCESS_SECRET']
 
 
-def postTweet(bot, data):   
+def postTweet(bot):   
     tweet = ""
 
-    confirmed = data['confirmed']['value']
-    deaths = data['deaths']['value']
-    recovered = data['recovered']['value']
+    confirmed = getTotalInfected()
+    deaths = getTotalDeaths()
 
-    if(confirmed > 0 and deaths > 0 and recovered > 0):
+    if(confirmed > 0 and deaths > 0):
         tweet = "COVID-19 NO BRASIL\n\n"
-        tweet += f"Infectados: {confirmed:,}\nMortos: {deaths:,}\nRecuperados: {recovered:,}\n\n"
-        tweet += "Fonte dos Dados: John Hopkins University CSSE\n"
+        tweet += f"Infectados: {confirmed:,}\nMortos: {deaths:,}\n\n"
+        tweet += "Fonte: Secretarias de Saúde das Unidades Federativas, dados tratados por Álvaro Justen e equipe de voluntários Brasil.IO\n"
         tweet += "#FiqueEmCasa"
     if((tweet != "") and (len(tweet) <= 280) and (isDuplicated(tweet, bot) == False)):
         print(tweet + "\ntamanho:" + str(len(tweet)))
@@ -44,6 +44,10 @@ def isDuplicated(tweet, api):
 
 # function that gets the difference between the current Data and
 # the data stored in 'data.json' and return a stg to be added on the tweet
+''' 
+TODO:
+    implement thread that tweets only the diference of values every 24h 
+'''
 def dataDiff(currentData):
     diffTxt = ""
     confirmed = currentData['confirmed']['value']
