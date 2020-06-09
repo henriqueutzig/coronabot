@@ -7,6 +7,8 @@ def storeData(currentData):
     with open('data.json', 'w') as wj:
         json.dump(currentData, wj, indent=4)
 
+# just compares the fetch json with the one save in the machine
+# still not a good comparation, but it works for now 
 def compareData(currentData):
     isDifferent = False
 
@@ -16,25 +18,10 @@ def compareData(currentData):
             rj_file = rj.read()
         oldData = json.loads(rj_file)
 
-        if((currentData['confirmed'] != oldData['confirmed']) or 
-        (currentData['recovered'] != oldData['recovered']) or 
-        (currentData['deaths'] != oldData['deaths'])):
+        if(currentData != oldData):
             isDifferent = True
-            #print("~DATA IS DIFFERENT")
-            # printCompare(currentData, oldData)
     else:
         storeData(currentData)
         isDifferent = True
-
+    #print("isDifferent: " + str(isDifferent))
     return isDifferent
-
-
-
-def printCompare(currentData, oldJson):
-    print("Old      x           New")
-    print("Infectados: " + str(oldJson['confirmed']['value']) + " | " + str(currentData['confirmed']['value']))
-    print("Mortes: " + str(oldJson['deaths']['value']) + " | " + str(currentData['deaths']['value']))
-    print("Recuperados: " + str(oldJson['recovered']['value']) + " | " + str(currentData['recovered']['value']))
-    #print("Infectados: " + str(oldJson['lastUpdate']['value']) + " | " + str(currentData['lastUpdate']['value']))
-    
-    
