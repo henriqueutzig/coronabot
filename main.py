@@ -6,7 +6,7 @@ from coronaTrackerAPI import getLatestData
 from twitterBot import postTweet, startup
 from database import compareData, storeData
 
-TIME =  30 * 60 # 30 min * 60 --> s
+TIME =  60 * 60 # 60 min * 60 --> s
 
 def main():
     bot_api = startup()
@@ -19,7 +19,7 @@ def main():
         
         # Post current data on Twitter
         if (isDifferent == True):
-            postTweet(bot_api, currentData)
+            postTweet(bot_api)
             storeData(currentData)
 
         
