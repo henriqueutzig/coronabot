@@ -27,15 +27,16 @@ def postTweet(bot):
         print(tweet + "\ntamanho:" + str(len(tweet)))
         bot.update_status(tweet)
 
-
 def isDuplicated(tweet, api):
     isDup = True
+    tweet = tweet[:tweet.find("Fonte")]
     # gets old tweets
-    oldTweets = api.user_timeline()
+    oldTweets = api.user_timeline(tweet_mode='extended')
     tweetList = []
     # creating an array with all the contents 
-    for t in oldTweets:            
-        tweetList.append(str(t.text))
+    for t in oldTweets:
+        text = t.full_text[:t.full_text.find("Fonte")]
+        tweetList.append(text)
     # compare old tweets with new and set isDup to True or False
     if (tweet not in tweetList):
         isDup = False
