@@ -4,28 +4,40 @@ import json
 import os
 from coronaTrackerAPI import getTotalDeaths, getTotalInfected
 
+
 #getting twitter keys
 from os import environ
-CONSUMER_KEY = environ['CONSUMER_KEY']
-CONSUMER_SECRET = environ['CONSUMER_SECRET']
-ACCESS_TOKEN = environ['ACCESS_KEY']
-ACCESS_TOKEN_SECRET = environ['ACCESS_SECRET']
+
+class Bot: 
+
+    def __init__(self, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET):
+        self.CONSUMER_KEY = CONSUMER_KEY
+        self.CONSUMER_SECRET = CONSUMER_SECRET
+        self.ACCESS_TOKEN = ACCESS_TOKEN
+        self.ACCESS_TOKEN_SECRET = ACCESS_TOKEN_SECRET
+        self.api = self.startup()
+
+    def startup(self):
+        # Authenticate to Twitter
+        auth = tweepy.OAuthHandler(self.CONSUMER_KEY, self.CONSUMER_SECRET)
+        auth.set_access_token(self.ACCESS_TOKEN, self.ACCESS_TOKEN_SECRET)
+
+        # Create API object
+        api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+        
+        return api
+        
+    def postTweet(self, text):
+        if(text.length <= 280 and text != ""):
+            print(text + "\ntamanho:" + str(len(text)))
+            self.api.update_status()
+
+    def getOldTweets(self):
+        return self.api.user_timeline(tweet_mode='extended')
+        
 
 
-def postTweet(bot):   
-    tweet = ""
 
-    confirmed = getTotalInfected()
-    deaths = getTotalDeaths()
-
-    if(confirmed > 0 and deaths > 0):
-        tweet = "COVID-19 NO BRASIL\n\n"
-        tweet += f"Infectados: {confirmed:,}\nMortos: {deaths:,}\n\n"
-        tweet += "Fonte: Secretarias de Saúde das Unidades Federativas, dados tratados por Álvaro Justen e equipe de voluntários Brasil.IO\n"
-        tweet += "#FiqueEmCasa"
-    if((tweet != "") and (len(tweet) <= 280) and (isDuplicated(tweet, bot) == False)):
-        print(tweet + "\ntamanho:" + str(len(tweet)))
-        bot.update_status(tweet)
 
 def isDuplicated(tweet, api):
     isDup = True
@@ -71,14 +83,3 @@ def dataDiff(currentData):
            diffTxt += f"\n{diff_recoverd:,} novos recuperados\n\n"
     
     return diffTxt
-
-# startup twitters api calling 
-def startup():
-    # Authenticate to Twitter
-    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-
-    # Create API object
-    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-    
-    return api
