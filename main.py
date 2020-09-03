@@ -5,6 +5,9 @@ from database import compareData, storeData
 
 TIME =  60 * 60 # 60 min * 60 --> s
 
+#getting twitter keys
+from os import environ
+
 def main():
 
     CONSUMER_KEY = environ['CONSUMER_KEY']
