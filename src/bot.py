@@ -21,9 +21,9 @@ class Bot:
         return api
         
     def postTweet(self, text):
-        if(text.length <= 280 and text != ""):
+        if(len(text) <= 280 and text != ""):
             print(text + "\ntamanho:" + str(len(text)))
-            self.api.update_status()
+            self.api.update_status(text)
 
     def getOldTweets(self):
         return self.api.user_timeline(tweet_mode='extended')
