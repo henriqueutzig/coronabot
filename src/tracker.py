@@ -18,6 +18,12 @@ class Tracker:
         jsonRes = json.loads(apiRes.text)
 
         dfRes = pd.DataFrame.from_records(jsonRes['results'])
+        # DataFrame manipulation
+        stateFilter = dfRes['place_type'] == 'state'
+        dfRes.where(stateFilter, inplace = True)
+        dfRes.dropna(subset=['confirmed', 'deaths'] , inplace = True)
+        dfRes.reset_index(inplace = True)
+
         return dfRes
 
     def update(self):
